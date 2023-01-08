@@ -12,10 +12,13 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import { Typography } from "@mui/material";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
 
 export default function LoggingTable() {
   const [loggingData, setLoggingData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [allOpen, setAllOpen] = useState(false);
 
   useEffect(() => {
     const url = "http://192.168.1.161:7003/api/v1/logging";
@@ -46,27 +49,57 @@ export default function LoggingTable() {
     setIsLoading(false);
   }, []);
 
+  const handleAllOpen = () => {
+    setAllOpen((pre) => !pre);
+  };
+
   return isLoading ? (
-    <Box sx={{ display: "flex" }}>
+    <Box>
       <CircularProgress />
     </Box>
   ) : (
-    <Box sx={{ width: "100%" }}>
-      <Toolbar>
+    <Box
+      sx={{
+        maxWidth: "90%",
+        position: "relative",
+        overflow: "scroll",
+        height: "100vh",
+      }}
+    >
+      <Toolbar
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         <Typography variant="h2">Logging</Typography>
+        <FormControlLabel
+          control={<Switch />}
+          label="Unfold All"
+          onChange={handleAllOpen}
+          checked={allOpen}
+        />
       </Toolbar>
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
               <TableCell />
-              <TableCell>Dessert (100g serving)</TableCell>
-              <TableCell align="center">Calories</TableCell>
+              <TableCell>Logging Date</TableCell>
+              <TableCell align="center">
+                Logging Summery - Expand to See Detail
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {loggingData.map((log) => (
-              <LoggingTableRow key={log.id} log={log} />
+            {loggingData.map((log, index) => (
+              <LoggingTableRow
+                key={log.id}
+                log={log}
+                index={index}
+                allOpen={allOpen}
+              />
             ))}
           </TableBody>
         </Table>

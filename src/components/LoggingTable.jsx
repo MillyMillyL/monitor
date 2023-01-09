@@ -11,9 +11,10 @@ import LoggingTableRow from "./LoggingTableRow";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import { Typography } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
+import { TablePagination } from "@mui/material";
+import { Typography } from "@mui/material";
 
 export default function LoggingTable() {
   const [loggingData, setLoggingData] = useState([]);
@@ -53,16 +54,26 @@ export default function LoggingTable() {
     setAllOpen((pre) => !pre);
   };
 
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const handleChangePage = (e, newpage) => {
+    setPage(newpage);
+  };
+
+  const handleChangeRowsPerPage = (e) => {
+    setRowsPerPage(e.target.value, 10);
+    setPage(0);
+  };
+
   return isLoading ? (
     <Box>
       <CircularProgress />
     </Box>
   ) : (
-    <Box
+    <Paper
       sx={{
-        maxWidth: "90%",
-        position: "relative",
-        overflow: "scroll",
+        padding: "24px",
         height: "100vh",
       }}
     >
@@ -81,29 +92,40 @@ export default function LoggingTable() {
           checked={allOpen}
         />
       </Toolbar>
-      <TableContainer component={Paper}>
-        <Table aria-label="collapsible table">
+      <TableContainer component={Paper} sx={{ height: "80%" }}>
+        <Table stickyHeader aria-label="collapsible table">
           <TableHead>
             <TableRow>
-              <TableCell />
-              <TableCell>Logging Date</TableCell>
-              <TableCell align="center">
+              <TableCell style={{ width: 67 }} />
+              <TableCell style={{ width: 300 }}>Logging Date</TableCell>
+              <TableCell style={{ width: 1100 }}>
                 Logging Summery - Expand to See Detail
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {loggingData.map((log, index) => (
-              <LoggingTableRow
-                key={log.id}
-                log={log}
-                index={index}
-                allOpen={allOpen}
-              />
-            ))}
+            {loggingData
+              .slice(rowsPerPage * page, rowsPerPage * page + rowsPerPage)
+              .map((log, index) => (
+                <LoggingTableRow
+                  key={log.id}
+                  log={log}
+                  index={index}
+                  allOpen={allOpen}
+                />
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
-    </Box>
+      <TablePagination
+        component="div"
+        rowsPerPageOptions={[5, 10, 25]}
+        count={loggingData.length}
+        page={page}
+        rowsPerPage={rowsPerPage}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+    </Paper>
   );
 }

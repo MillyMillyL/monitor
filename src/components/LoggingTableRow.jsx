@@ -6,6 +6,14 @@ import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import {
+  Box,
+  Paper,
+  Table,
+  TableBody,
+  TableContainer,
+  Typography,
+} from "@mui/material";
 
 const LoggingTableRow = ({ log, index, allOpen }) => {
   const [open, setOpen] = useState(false);
@@ -15,8 +23,8 @@ const LoggingTableRow = ({ log, index, allOpen }) => {
   }, [allOpen]);
 
   return (
-    <React.Fragment>
-      <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
+    <>
+      <TableRow sx={{ "& > *": { borderBottom: "unset" }, px: "15px" }}>
         <TableCell>
           <IconButton
             aria-label="expand row"
@@ -34,16 +42,17 @@ const LoggingTableRow = ({ log, index, allOpen }) => {
         </TableCell>
 
         {!open && (
-          <TableCell
-            align="center"
-            sx={{
-              maxWidth: "150ch", // percentage also works
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-            }}
-          >
-            {JSON.stringify(log)}
+          <TableCell align="left">
+            <Typography
+              sx={{
+                width: 1100,
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+              }}
+            >
+              {JSON.stringify(log)}
+            </Typography>
           </TableCell>
         )}
       </TableRow>
@@ -54,7 +63,7 @@ const LoggingTableRow = ({ log, index, allOpen }) => {
           </Collapse>
         </TableCell>
       </TableRow>
-    </React.Fragment>
+    </>
   );
 };
 

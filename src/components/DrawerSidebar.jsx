@@ -21,7 +21,7 @@ import LogoDevOutlinedIcon from "@mui/icons-material/LogoDevOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
 
-const drawerWidth = 240;
+export const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,

@@ -13,9 +13,9 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
-import { TablePagination } from "@mui/material";
 import { Typography } from "@mui/material";
 import LoggingTablePagination from "./LoggingTablePagination";
+import DateRangePicker from "./DateRangePicker";
 
 export default function LoggingTable() {
   const [loggingData, setLoggingData] = useState([]);
@@ -24,15 +24,6 @@ export default function LoggingTable() {
   const [page, setPage] = useState("0");
   const [rowsPerPage, setRowsPerPage] = useState("10");
   const loggingEndUrl = "/api/v1/logging";
-
-  const handleChangePage = (e, newpage) => {
-    setPage(newpage);
-  };
-
-  const handleChangeRowsPerPage = (e) => {
-    setRowsPerPage(e.target.value, 10);
-    setPage(0);
-  };
 
   useEffect(() => {
     const url = `${import.meta.env.VITE_MONITOR_BASE_URL}${loggingEndUrl}`;
@@ -96,6 +87,7 @@ export default function LoggingTable() {
           onChange={handleAllOpen}
           checked={allOpen}
         />
+        <DateRangePicker />
       </Toolbar>
       <TableContainer component={Paper} sx={{ height: "80%" }}>
         <Table stickyHeader aria-label="collapsible table">
@@ -120,15 +112,6 @@ export default function LoggingTable() {
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
-        component="div"
-        rowsPerPageOptions={[5, 10, 25, 50, 100, 250, 500]}
-        count={loggingData.length}
-        page={parseInt(page)}
-        rowsPerPage={parseInt(rowsPerPage)}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
       <LoggingTablePagination
         page={page}
         setPage={setPage}

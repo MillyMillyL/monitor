@@ -16,26 +16,31 @@ const LoggingTablePagination = ({ page, setPage, setRowsPerPage }) => {
     setPage(0);
   };
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "flex-end",
+        alignItems: "center",
+      }}
+    >
+      <span>Show rows</span>
+      <select onChange={handleChangeRowsPerPage}>
+        {rowsPerPageOptions.map((option) => (
+          <option value={option} key={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+
       {page != 0 && (
         <button onClick={handlePrevPage} style={{ backgroundColor: "white" }}>
-          Last Page
+          Prev Page
         </button>
       )}
       <span>You are at page {(parseInt(page) + 1).toString()}</span>
       <button onClick={handleNextPage} style={{ backgroundColor: "white" }}>
         Next Page
       </button>
-      <span>
-        Rows per page
-        <select onChange={handleChangeRowsPerPage}>
-          {rowsPerPageOptions.map((option) => (
-            <option value={option} key={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-      </span>
     </div>
   );
 };

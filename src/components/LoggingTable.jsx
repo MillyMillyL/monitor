@@ -15,15 +15,32 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { TablePagination } from "@mui/material";
 import { Typography } from "@mui/material";
+import LoggingTablePagination from "./LoggingTablePagination";
 
 export default function LoggingTable() {
   const [loggingData, setLoggingData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [allOpen, setAllOpen] = useState(false);
+  const [page, setPage] = useState("0");
+  const [rowsPerPage, setRowsPerPage] = useState("10");
+  const loggingEndUrl = "/api/v1/logging";
+
+  const handleChangePage = (e, newpage) => {
+    setPage(newpage);
+  };
+
+  const handleChangeRowsPerPage = (e) => {
+    setRowsPerPage(e.target.value, 10);
+    setPage(0);
+  };
 
   useEffect(() => {
-    const url = "http://192.168.1.161:7003/api/v1/logging";
-    const requestBody = { pageIndex: 1, pageSize: 10 };
+    const url = `${import.meta.env.VITE_MONITOR_BASE_URL}${loggingEndUrl}`;
+
+    const requestBody = {
+      pageIndex: (parseInt(page) + 1).toString(),
+      pageSize: rowsPerPage,
+    };
 
     async function fetchLogging(url) {
       fetch(url, {
@@ -48,22 +65,10 @@ export default function LoggingTable() {
     setIsLoading(true);
     fetchLogging(url);
     setIsLoading(false);
-  }, []);
+  }, [page, rowsPerPage]);
 
   const handleAllOpen = () => {
     setAllOpen((pre) => !pre);
-  };
-
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-
-  const handleChangePage = (e, newpage) => {
-    setPage(newpage);
-  };
-
-  const handleChangeRowsPerPage = (e) => {
-    setRowsPerPage(e.target.value, 10);
-    setPage(0);
   };
 
   return isLoading ? (
@@ -104,27 +109,31 @@ export default function LoggingTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {loggingData
-              .slice(rowsPerPage * page, rowsPerPage * page + rowsPerPage)
-              .map((log, index) => (
-                <LoggingTableRow
-                  key={log.id}
-                  log={log}
-                  index={index}
-                  allOpen={allOpen}
-                />
-              ))}
+            {loggingData.map((log, index) => (
+              <LoggingTableRow
+                key={log.id}
+                log={log}
+                index={index}
+                allOpen={allOpen}
+              />
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
       <TablePagination
         component="div"
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[5, 10, 25, 50, 100, 250, 500]}
         count={loggingData.length}
-        page={page}
-        rowsPerPage={rowsPerPage}
+        page={parseInt(page)}
+        rowsPerPage={parseInt(rowsPerPage)}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+      <LoggingTablePagination
+        page={page}
+        setPage={setPage}
+        rowsPerPage={rowsPerPage}
+        setRowsPerPage={setRowsPerPage}
       />
     </Paper>
   );

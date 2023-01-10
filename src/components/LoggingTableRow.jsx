@@ -59,7 +59,14 @@ const LoggingTableRow = ({ log, index, allOpen }) => {
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={12}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <pre key={log.id}>{JSON.stringify(log, null, 4)}</pre>
+            <Typography
+              key={log.id}
+              sx={{
+                whiteSpace: "pre-line",
+              }}
+            >
+              {JSON.stringify(log, null, 4)}
+            </Typography>
           </Collapse>
         </TableCell>
       </TableRow>

@@ -132,7 +132,6 @@ export default function LoggingTable() {
       <LoggingTablePagination
         page={page}
         setPage={setPage}
-        rowsPerPage={rowsPerPage}
         setRowsPerPage={setRowsPerPage}
       />
     </Paper>

@@ -1,12 +1,9 @@
 import { Button } from "@mui/material";
 import React from "react";
 
-const LoggingTablePagination = ({
-  page,
-  setPage,
-  rowsPerPage,
-  setRowsPerPage,
-}) => {
+const LoggingTablePagination = ({ page, setPage, setRowsPerPage }) => {
+  const rowsPerPageOptions = [10, 25, 50, 100, 250, 500];
+
   const handleNextPage = () => {
     setPage((prev) => (parseInt(prev) + 1).toString());
   };
@@ -31,10 +28,12 @@ const LoggingTablePagination = ({
       </button>
       <span>
         Rows per page
-        <select>
-          <option value="10">10</option>
-          <option value="25">20</option>
-          <option value="50">30</option>
+        <select onChange={handleChangeRowsPerPage}>
+          {rowsPerPageOptions.map((option) => (
+            <option value={option} key={option}>
+              {option}
+            </option>
+          ))}
         </select>
       </span>
     </div>

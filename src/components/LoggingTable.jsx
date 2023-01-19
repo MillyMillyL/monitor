@@ -1,12 +1,5 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import LoggingTableRow from "./LoggingTableRow";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
@@ -16,6 +9,7 @@ import Switch from "@mui/material/Switch";
 import { Typography } from "@mui/material";
 import LoggingTablePagination from "./LoggingTablePagination";
 import DateRangePicker from "./DateRangePicker";
+import "./loggingTable.css";
 
 export default function LoggingTable() {
   const [loggingData, setLoggingData] = useState([]);
@@ -67,7 +61,7 @@ export default function LoggingTable() {
       <CircularProgress />
     </Box>
   ) : (
-    <Paper
+    <Box
       sx={{
         padding: "24px",
         height: "100vh",
@@ -89,34 +83,28 @@ export default function LoggingTable() {
         />
         <DateRangePicker />
       </Toolbar>
-      <TableContainer component={Paper} sx={{ height: "80%" }}>
-        <Table stickyHeader aria-label="collapsible table">
-          <TableHead>
-            <TableRow>
-              <TableCell style={{ width: 67 }} />
-              <TableCell style={{ width: 300 }}>Logging Date</TableCell>
-              <TableCell style={{ width: 1100 }}>
-                Logging Summery - Expand to See Detail
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {loggingData.map((log, index) => (
-              <LoggingTableRow
-                key={log.id}
-                log={log}
-                index={index}
-                allOpen={allOpen}
-              />
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <div className="table">
+        <div className="container">
+          <div className="subContainer">
+            <div className="item"></div>
+            <div className="item">date</div>
+            <div className="item">log</div>
+          </div>
+          {loggingData.map((log, index) => (
+            <LoggingTableRow
+              key={log.id}
+              log={log}
+              index={index}
+              allOpen={allOpen}
+            />
+          ))}
+        </div>
+      </div>
       <LoggingTablePagination
         page={page}
         setPage={setPage}
         setRowsPerPage={setRowsPerPage}
       />
-    </Paper>
+    </Box>
   );
 }

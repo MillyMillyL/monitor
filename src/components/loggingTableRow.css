@@ -1,13 +1,22 @@
-.table {
-  height: 80%;
-  overflow: auto;
+.dateOpen {
+  grid-column: 2/4;
 }
 
-.container {
-  display: grid;
-  width: 100%;
+.detailOpen {
+  display: none;
 }
 
+.arrowButton {
+  background-color: transparent;
+  padding: 0;
+  border: none;
+}
+
+.detail {
+  grid-column: 1/4;
+  text-align: left;
+  white-space: pre-line;
+}
 .subContainer {
   display: grid;
   grid-template-columns: 50px 300px 1fr;

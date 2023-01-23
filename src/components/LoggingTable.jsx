@@ -8,13 +8,12 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { Typography } from "@mui/material";
 import LoggingTablePagination from "./LoggingTablePagination";
-import DateRangePicker from "./DateRangePicker";
 import "./loggingTable.css";
 
 export default function LoggingTable() {
   const [loggingData, setLoggingData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [allOpen, setAllOpen] = useState(false);
+  const [allOpen, setAllOpen] = useState(true);
   const [page, setPage] = useState("0");
   const [rowsPerPage, setRowsPerPage] = useState("10");
   const loggingEndUrl = "/api/v1/logging";
@@ -63,42 +62,24 @@ export default function LoggingTable() {
   ) : (
     <Box
       sx={{
-        padding: "24px",
         height: "100vh",
       }}
     >
-      <Toolbar
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <Typography variant="h2">Logging</Typography>
+      <Toolbar className="Toolbar">
+        <Typography variant="h4">Logging</Typography>
         <FormControlLabel
           control={<Switch />}
           label="Unfold All"
           onChange={handleAllOpen}
           checked={allOpen}
         />
-        <DateRangePicker />
+        {/* <DateRangePicker /> */}
       </Toolbar>
+
       <div className="table">
-        <div className="container">
-          <div className="subContainer">
-            <div className="item"></div>
-            <div className="item">date</div>
-            <div className="item">log</div>
-          </div>
-          {loggingData.map((log, index) => (
-            <LoggingTableRow
-              key={log.id}
-              log={log}
-              index={index}
-              allOpen={allOpen}
-            />
-          ))}
-        </div>
+        {loggingData.map((log) => (
+          <LoggingTableRow key={log.id} log={log} allOpen={allOpen} />
+        ))}
       </div>
       <LoggingTablePagination
         page={page}

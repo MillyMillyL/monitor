@@ -1,7 +1,7 @@
 import React from "react";
 import "./logging.css";
-import DrawerSidebar from "../components/DrawerSidebar";
-import LoggingTable from "../components/LoggingTable";
+import DrawerSidebar from "../../components/DrawerSidebar";
+import LoggingTable from "../../components/LoggingTable";
 
 const Logging = () => {
   return (

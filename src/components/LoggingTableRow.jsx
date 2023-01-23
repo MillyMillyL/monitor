@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import Box from "@mui/material/Box";
+import Fade from "@mui/material/Fade";
 import "./loggingTableRow.css";
 
-const LoggingTableRow = ({ log, index, allOpen }) => {
+const LoggingTableRow = ({ log, allOpen }) => {
   const [open, setOpen] = useState(false);
 
   function handleRowOpen() {
@@ -15,21 +15,14 @@ const LoggingTableRow = ({ log, index, allOpen }) => {
   }, [allOpen]);
 
   return (
-    <div className="subContainer">
-      <div className="item">
-        <button className="arrowButton" onClick={handleRowOpen}>
-          {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-        </button>
-      </div>
-      <div className={`item ${open && "dateOpen"}`}>{log.logDate}</div>
-      <div className={`item log ${open && "detailOpen"}`}>
-        {JSON.stringify(log)}
-      </div>
-      {open && (
-        <div className="detail item">
-          <p>{JSON.stringify(log, null, 4)}</p>
-        </div>
-      )}
+    <div className="">
+      <Box component="div" className="Log" onClick={handleRowOpen}>
+        {log.logDate} - {log.loglevel}:{log.environment}:{log.service}:
+        {log.category}
+      </Box>
+      <Fade in={open} unmountOnExit={true}>
+        <pre>{JSON.stringify(log, null, 4)}</pre>
+      </Fade>
     </div>
   );
 };

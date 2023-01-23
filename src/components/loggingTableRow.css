@@ -1,36 +1,6 @@
-.dateOpen {
-  grid-column: 2/4;
-}
-
-.detailOpen {
-  display: none;
-}
-
-.arrowButton {
-  background-color: transparent;
-  padding: 0;
-  border: none;
-}
-
-.detail {
-  grid-column: 1/4;
-  text-align: left;
-  white-space: pre-line;
-}
-.subContainer {
-  display: grid;
-  grid-template-columns: 50px 300px 1fr;
-}
-
-.item {
-  padding: 4px;
-  text-align: left;
-  justify-self: stretch;
-  align-self: stretch;
-}
-
-.log {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.Log {
+  padding: 8px;
+  margin-top: 4px;
+  border-bottom: 1px solid lightgray;
+  cursor: pointer;
 }

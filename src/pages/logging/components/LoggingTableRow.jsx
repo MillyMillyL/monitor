@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
-import "./loggingTableRow.css";
+import "../style.css";
 
 const LoggingTableRow = ({ log, allOpen }) => {
   const [open, setOpen] = useState(false);

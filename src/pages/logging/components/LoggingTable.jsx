@@ -8,7 +8,8 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { Typography } from "@mui/material";
 import LoggingTablePagination from "./LoggingTablePagination";
-import "./loggingTable.css";
+import "../style.css";
+import { useRef } from "react";
 
 export default function LoggingTable() {
   const [loggingData, setLoggingData] = useState([]);
@@ -17,6 +18,14 @@ export default function LoggingTable() {
   const [page, setPage] = useState("0");
   const [rowsPerPage, setRowsPerPage] = useState("10");
   const loggingEndUrl = "/api/v1/logging";
+
+  const toolbar = useRef();
+  console.log(toolbar?.current?.clientHeight);
+  const paginationref = React.createRef();
+
+  useEffect(() => {
+    console.log(paginationref?.current?.clientHeight);
+  }, []);
 
   useEffect(() => {
     const url = `${import.meta.env.VITE_MONITOR_BASE_URL}${loggingEndUrl}`;
@@ -63,9 +72,10 @@ export default function LoggingTable() {
     <Box
       sx={{
         height: "100vh",
+        width: "100%",
       }}
     >
-      <Toolbar className="Toolbar">
+      <Toolbar className="Toolbar" ref={toolbar}>
         <Typography variant="h4">Logging</Typography>
         <FormControlLabel
           control={<Switch />}
@@ -76,15 +86,22 @@ export default function LoggingTable() {
         {/* <DateRangePicker /> */}
       </Toolbar>
 
-      <div className="table">
+      <div
+        className="table"
+        style={{
+          height: "80%",
+        }}
+      >
         {loggingData.map((log) => (
           <LoggingTableRow key={log.id} log={log} allOpen={allOpen} />
         ))}
       </div>
+
       <LoggingTablePagination
         page={page}
         setPage={setPage}
         setRowsPerPage={setRowsPerPage}
+        ref={paginationref}
       />
     </Box>
   );

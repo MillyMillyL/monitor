@@ -1,5 +1,5 @@
 import "./App.css";
-import Logging from "./pages/Logging";
+import Logging from "./pages/logging";
 
 function App() {
   return (

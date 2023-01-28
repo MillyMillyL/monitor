@@ -17,10 +17,6 @@ const LoggingTablePagination = React.forwardRef(
       setPage(0);
     };
 
-    useEffect(() => {
-      console.log(ref.current.clientHeight);
-    }, [ref]);
-
     return (
       <div
         style={{

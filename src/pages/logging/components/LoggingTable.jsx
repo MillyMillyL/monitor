@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useLayoutEffect } from "react";
 import LoggingTableRow from "./LoggingTableRow";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
@@ -20,12 +20,47 @@ export default function LoggingTable() {
   const loggingEndUrl = "/api/v1/logging";
 
   const toolbar = useRef();
-  console.log(toolbar?.current?.clientHeight);
-  const paginationref = React.createRef();
+  const paginationref = useRef();
+
+  const [contentHeight, setContentHeight] = useState(undefined);
+
+  function throttle(callback, delay = 1000) {
+    let shouldWait = false;
+
+    return (...args) => {
+      if (shouldWait) return;
+
+      callback(...args);
+      shouldWait = true;
+      setTimeout(() => {
+        shouldWait = false;
+      }, delay);
+    };
+  }
 
   useEffect(() => {
-    console.log(paginationref?.current?.clientHeight);
-  }, []);
+    function handleResize() {
+      var h =
+        document.documentElement.offsetHeight -
+        paginationref?.current?.offsetHeight -
+        toolbar?.current?.offsetHeight;
+      if (isNaN(h)) h = 0;
+
+      console.log(
+        h,
+        paginationref?.current?.clientHeight,
+        toolbar?.current?.clientHeight
+      );
+
+      setContentHeight(h);
+    }
+
+    window.addEventListener("resize", throttle(handleResize));
+
+    handleResize();
+
+    return () => window.removeEventListener("resize", throttle(handleResize));
+  }, [loggingData]);
 
   useEffect(() => {
     const url = `${import.meta.env.VITE_MONITOR_BASE_URL}${loggingEndUrl}`;
@@ -86,12 +121,7 @@ export default function LoggingTable() {
         {/* <DateRangePicker /> */}
       </Toolbar>
 
-      <div
-        className="table"
-        style={{
-          height: "80%",
-        }}
-      >
+      <div style={{ height: contentHeight }} className="table">
         {loggingData.map((log) => (
           <LoggingTableRow key={log.id} log={log} allOpen={allOpen} />
         ))}

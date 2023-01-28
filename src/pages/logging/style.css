@@ -22,4 +22,11 @@
   align-items: center;
   padding-bottom: 10px;
   border-bottom: 1px solid lightgray;
+  position: sticky;
+  top: 0;
+}
+
+.pagination {
+  position: sticky;
+  bottom: 0;
 }

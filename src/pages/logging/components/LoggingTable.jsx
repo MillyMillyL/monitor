@@ -40,10 +40,9 @@ export default function LoggingTable() {
 
   useEffect(() => {
     function handleResize() {
-      var h =
-        document.documentElement.offsetHeight -
-        paginationref?.current?.offsetHeight -
-        toolbar?.current?.offsetHeight;
+      var h = document.documentElement.offsetHeight - 40 - 64 - 100;
+      // paginationref?.current?.offsetHeight -
+      // toolbar?.current?.offsetHeight;
       if (isNaN(h)) h = 0;
 
       console.log(
@@ -99,6 +98,14 @@ export default function LoggingTable() {
     setAllOpen((pre) => !pre);
   };
 
+  // var docWidth = document.documentElement.offsetWidth;
+
+  // [].forEach.call(document.querySelectorAll("*"), function (el) {
+  //   if (el.offsetWidth > docWidth) {
+  //     console.log(el);
+  //   }
+  // });
+
   return isLoading ? (
     <Box>
       <CircularProgress />
@@ -108,6 +115,7 @@ export default function LoggingTable() {
       sx={{
         height: "100vh",
         width: "100%",
+        position: "relative",
       }}
     >
       <Toolbar className="Toolbar" ref={toolbar}>
@@ -121,7 +129,10 @@ export default function LoggingTable() {
         {/* <DateRangePicker /> */}
       </Toolbar>
 
-      <div style={{ height: contentHeight }} className="table">
+      <div
+        style={{ height: contentHeight, overflowY: "auto" }}
+        className="table"
+      >
         {loggingData.map((log) => (
           <LoggingTableRow key={log.id} log={log} allOpen={allOpen} />
         ))}
@@ -132,6 +143,7 @@ export default function LoggingTable() {
         setPage={setPage}
         setRowsPerPage={setRowsPerPage}
         ref={paginationref}
+        className="pagination"
       />
     </Box>
   );

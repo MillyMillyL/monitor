@@ -16,6 +16,7 @@ import DashboardCustomizeOutlinedIcon from "@mui/icons-material/DashboardCustomi
 import LogoDevOutlinedIcon from "@mui/icons-material/LogoDevOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
+import { Link } from "react-router-dom";
 
 export const drawerWidth = 240;
 
@@ -71,12 +72,16 @@ export default function MiniDrawer() {
   const [open, setOpen] = React.useState(false);
 
   const sidebarItems1 = [
-    { text: "Dashboard", icon: <DashboardCustomizeOutlinedIcon /> },
-    { text: "Logging", icon: <LogoDevOutlinedIcon /> },
+    {
+      text: "Dashboard",
+      icon: <DashboardCustomizeOutlinedIcon />,
+      path: "/dashboard",
+    },
+    { text: "Logging", icon: <LogoDevOutlinedIcon />, path: "/logging" },
   ];
   const sidebarItems2 = [
-    { text: "Settings", icon: <SettingsOutlinedIcon /> },
-    { text: "Profile", icon: <AccountBoxOutlinedIcon /> },
+    { text: "Settings", icon: <SettingsOutlinedIcon />, path: "/logging" },
+    { text: "Profile", icon: <AccountBoxOutlinedIcon />, path: "/logging" },
   ];
 
   const handleDrawerOpen = () => {
@@ -89,7 +94,13 @@ export default function MiniDrawer() {
 
   const SidebarItem = (arr) => {
     return arr.map((item) => (
-      <ListItem key={item.text} disablePadding sx={{ display: "block" }}>
+      <ListItem
+        key={item.text}
+        disablePadding
+        sx={{ display: "block" }}
+        component={Link}
+        to={item.path}
+      >
         <ListItemButton
           sx={{
             minHeight: 48,

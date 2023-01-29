@@ -16,7 +16,7 @@ import DashboardCustomizeOutlinedIcon from "@mui/icons-material/DashboardCustomi
 import LogoDevOutlinedIcon from "@mui/icons-material/LogoDevOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
-import { Link, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 
 export const drawerWidth = 240;
 
@@ -98,8 +98,9 @@ export default function MiniDrawer() {
         key={item.text}
         disablePadding
         sx={{ display: "block" }}
-        component={Link}
+        component={NavLink}
         to={item.path}
+        style={({ isActive }) => ({ color: isActive ? "red" : "black" })}
       >
         <ListItemButton
           sx={{

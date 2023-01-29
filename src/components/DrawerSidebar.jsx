@@ -16,7 +16,7 @@ import DashboardCustomizeOutlinedIcon from "@mui/icons-material/DashboardCustomi
 import LogoDevOutlinedIcon from "@mui/icons-material/LogoDevOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 export const drawerWidth = 240;
 
@@ -124,7 +124,7 @@ export default function MiniDrawer() {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", position: "absolute" }}>
       <CssBaseline />
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
@@ -152,6 +152,7 @@ export default function MiniDrawer() {
         <Divider />
         <List>{SidebarItem(sidebarItems2)}</List>
       </Drawer>
+      <Outlet />
     </Box>
   );
 }

@@ -6,7 +6,7 @@ import LoggingTable from "./components/LoggingTable";
 const Logging = () => {
   return (
     <div className="logging-page">
-      <DrawerSidebar />
+      {/* <DrawerSidebar /> */}
       <LoggingTable />
     </div>
   );

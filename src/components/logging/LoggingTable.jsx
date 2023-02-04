@@ -8,7 +8,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { Typography } from "@mui/material";
 import LoggingTablePagination from "./LoggingTablePagination";
-import "../style.css";
+import "./style.css";
 import { useRef } from "react";
 
 export default function LoggingTable() {

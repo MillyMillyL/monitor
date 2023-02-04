@@ -1,0 +1,32 @@
+.logging-page {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.Log {
+  padding: 8px 16px;
+  margin-top: 4px;
+  border-bottom: 1px solid lightgray;
+  cursor: pointer;
+}
+
+.table {
+  width: 100%;
+  overflow: auto;
+}
+
+.Toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid lightgray;
+  position: sticky;
+  top: 0;
+}
+
+.pagination {
+  position: sticky;
+  bottom: 0;
+}

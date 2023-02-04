@@ -16,6 +16,7 @@ import DashboardCustomizeOutlinedIcon from "@mui/icons-material/DashboardCustomi
 import LogoDevOutlinedIcon from "@mui/icons-material/LogoDevOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
+import { Link } from "react-router-dom";
 
 export const drawerWidth = 240;
 
@@ -71,8 +72,12 @@ export default function MiniDrawer() {
   const [open, setOpen] = React.useState(false);
 
   const sidebarItems1 = [
-    { text: "Dashboard", icon: <DashboardCustomizeOutlinedIcon /> },
-    { text: "Logging", icon: <LogoDevOutlinedIcon /> },
+    {
+      text: "Dashboard",
+      endpoint: "/monitor",
+      icon: <DashboardCustomizeOutlinedIcon />,
+    },
+    { text: "Logging", endpoint: "/logging", icon: <LogoDevOutlinedIcon /> },
   ];
   const sidebarItems2 = [
     { text: "Settings", icon: <SettingsOutlinedIcon /> },
@@ -89,26 +94,27 @@ export default function MiniDrawer() {
 
   const SidebarItem = (arr) => {
     return arr.map((item) => (
-      <ListItem key={item.text} disablePadding sx={{ display: "block" }}>
-        <ListItemButton
+      <ListItemButton
+        key={item.text}
+        component={Link}
+        to={item.endpoint}
+        sx={{
+          minHeight: 48,
+          justifyContent: open ? "initial" : "center",
+          px: 2.5,
+        }}
+      >
+        <ListItemIcon
           sx={{
-            minHeight: 48,
-            justifyContent: open ? "initial" : "center",
-            px: 2.5,
+            minWidth: 0,
+            mr: open ? 3 : "auto",
+            justifyContent: "center",
           }}
         >
-          <ListItemIcon
-            sx={{
-              minWidth: 0,
-              mr: open ? 3 : "auto",
-              justifyContent: "center",
-            }}
-          >
-            {item.icon}
-          </ListItemIcon>
-          <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0 }} />
-        </ListItemButton>
-      </ListItem>
+          {item.icon}
+        </ListItemIcon>
+        <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0 }} />
+      </ListItemButton>
     ));
   };
 
@@ -139,7 +145,7 @@ export default function MiniDrawer() {
         <Divider />
         <List>{SidebarItem(sidebarItems1)}</List>
         <Divider />
-        <List>{SidebarItem(sidebarItems2)}</List>
+        {/* <List>{SidebarItem(sidebarItems2)}</List> */}
       </Drawer>
     </Box>
   );

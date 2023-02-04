@@ -45,11 +45,11 @@ export default function LoggingTable() {
       // toolbar?.current?.offsetHeight;
       if (isNaN(h)) h = 0;
 
-      console.log(
-        h,
-        paginationref?.current?.clientHeight,
-        toolbar?.current?.clientHeight
-      );
+      // console.log(
+      //   h,
+      //   paginationref?.current?.clientHeight,
+      //   toolbar?.current?.clientHeight
+      // );
 
       setContentHeight(h);
     }

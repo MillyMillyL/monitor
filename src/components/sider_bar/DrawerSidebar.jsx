@@ -71,7 +71,7 @@ export default function MiniDrawer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-  const sidebarItems1 = [
+  const menuItems = [
     {
       text: "Dashboard",
       endpoint: "/monitor",
@@ -79,20 +79,16 @@ export default function MiniDrawer() {
     },
     { text: "Logging", endpoint: "/logging", icon: <LogoDevOutlinedIcon /> },
   ];
-  const sidebarItems2 = [
-    { text: "Settings", icon: <SettingsOutlinedIcon /> },
-    { text: "Profile", icon: <AccountBoxOutlinedIcon /> },
-  ];
+  // const sidebarItems2 = [
+  //   { text: "Settings", icon: <SettingsOutlinedIcon /> },
+  //   { text: "Profile", icon: <AccountBoxOutlinedIcon /> },
+  // ];
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
+  const handleDrawerClick = () => {
+    setOpen((prev) => !prev);
   };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  const SidebarItem = (arr) => {
+  const generateMenuItem = (arr) => {
     return arr.map((item) => (
       <ListItemButton
         key={item.text}
@@ -119,12 +115,12 @@ export default function MiniDrawer() {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box>
       <CssBaseline />
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           {open && (
-            <IconButton onClick={handleDrawerClose}>
+            <IconButton onClick={handleDrawerClick}>
               {theme.direction === "rtl" ? (
                 <ChevronRightIcon />
               ) : (
@@ -133,7 +129,7 @@ export default function MiniDrawer() {
             </IconButton>
           )}
           {!open && (
-            <IconButton onClick={handleDrawerOpen}>
+            <IconButton onClick={handleDrawerClick}>
               {theme.direction === "rtl" ? (
                 <ChevronLeftIcon />
               ) : (
@@ -143,7 +139,7 @@ export default function MiniDrawer() {
           )}
         </DrawerHeader>
         <Divider />
-        <List>{SidebarItem(sidebarItems1)}</List>
+        <List>{generateMenuItem(menuItems)}</List>
         <Divider />
         {/* <List>{SidebarItem(sidebarItems2)}</List> */}
       </Drawer>

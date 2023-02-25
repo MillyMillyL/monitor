@@ -5,7 +5,7 @@ import "./style.css";
 
 const LoggingPagination = React.forwardRef(
   ({ pageIndex, setPageIndex, pageSize, setPageSize }, ref) => {
-    const pageSizeOptions = [50, 100, 200, 500];
+    const pageSizeOptions = [50, 100, 200, 300];
 
     const onClickNextPage = () => {
       setPageIndex((prev) => prev + 1);

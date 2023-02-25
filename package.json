@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host --port 5173 --open",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -23,6 +23,7 @@
     "react-datepicker": "^4.8.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.0",
+    "reset-css": "^5.0.1",
     "styled-components": "^5.3.6"
   },
   "devDependencies": {

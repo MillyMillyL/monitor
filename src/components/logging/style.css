@@ -1,59 +1,74 @@
 /* 
-* ---- logging table ----
+* ---- log main ----
 */
 .log-container{
   height: 100vh;
   width: 100%,;
   position: relative;
 }
+
+/*
+* ----log toolbar-----
+*/
 .log-container .toolbar{
-  height: 70px;
   display: flex;
   justify-content: space-between;
+  height: var(--fsp-logging-toolbar-height);
   background-color: var(--fsp-banner-bg-color);   
   border-bottom: 2px solid #eee;
 }
+
+/*
+* ----log rows-----
+*/
 .log-container .log-rows{
   overflow-y: auto;
-  height: calc(100vh - 70px);
+  height: calc(100vh -  var(--fsp-logging-toolbar-height));
+}
+
+.log-container .log-rows-loading{
+  display: flex;
+  height:calc(100vh -  var(--fsp-logging-toolbar-height));
+  justify-content: center;
+  align-items: center;
 }
 
 /*
 * ----log row-----
 */
-.log-row-title {
+.log-container .log-rows .log-row-title {
   padding: 0.3rem 0.8rem;
   margin-top: 0.3px;
   cursor: pointer;
   background-color: var(--fsp-bg-color);
 }
-.log-row-content{
+.log-container .log-rows .log-row-content{
   padding-left: 1rem;
 }
-.log-row-content .json-kv{
+.log-container .log-rows .log-row-content .json-kv{
   padding-left: 2rem;
 }
-.log-row-content .json-kv:hover{
+.log-container .log-rows .log-row-content .json-kv:hover{
   background-color: var(--fsp-bg-color);
   border-radius: 0.2rem;
 }
-.log-row-content .json-kv .json-key{
+.log-container .log-rows .log-row-content .json-kv .json-key{
   text-transform: capitalize;
   display: inline-block;
   width: 150px; 
 }
 
 /*
-* ---- Pagination ----
+* ---- log Pagination ----
 */
-.pagination {
+.log-container .pagination {
   position: absolute;
   bottom: 10px;
   right: 20px; 
   line-height:30px;
 }
 
-.pagination .button {
+.log-container .pagination .button {
   border-radius: 8px;
   cursor: pointer;
   transition: border-color 0.25s; 
@@ -62,12 +77,12 @@
   padding:0.3rem 0.5rem;
   border: 1px solid #535151;
 }
-.pagination span {
+.log-container .pagination span {
   display: inline-block;
   margin: 0 0.3rem;
 }
 
-.pagination select {
+.log-container .pagination select {
   display: inline-block;
   margin: 0 0.3rem;
   padding:0.3rem 0.5rem;

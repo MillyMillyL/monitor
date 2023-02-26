@@ -7,7 +7,7 @@ import { toLocalDateTime } from "@/shared/utils";
 import "./style.css";
 
 const LoggingRow = ({ log, allOpen }) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   function handleRowOpen() {
     setOpen((prev) => !prev);
@@ -19,12 +19,7 @@ const LoggingRow = ({ log, allOpen }) => {
 
   return (
     <>
-      <Box
-        component="div"
-        sx={{ fontSize: "1.1rem" }}
-        className="log-row-title"
-        onClick={handleRowOpen}
-      >
+      <Box className="log-row-title" onClick={handleRowOpen}>
         {toLocalDateTime(log.logDate)} - {log.loglevel}@{log.environment}
       </Box>
       <Fade in={open} unmountOnExit={true}>

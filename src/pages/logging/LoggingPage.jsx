@@ -1,10 +1,10 @@
 import React from "react";
-import { LoggingTable } from "../../components";
+import { LoggingMain } from "@/components";
 
 function LoggingPage() {
   return (
     <>
-      <LoggingTable />
+      <LoggingMain />
     </>
   );
 }

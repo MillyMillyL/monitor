@@ -10,21 +10,32 @@ export default function useFectch(requestBody) {
   requestBody &&
     useEffect(() => {
       setIsLoading(true);
-      const fetchPromise = fetchLogging(requestBody);
+      let isMounted = true;
+
+      const [fetchPromise, controller] = fetchLogging(requestBody);
       fetchPromise
         .then((res) => res.json())
         .then((json) => {
-          setData(json.data);
-          setIsSuccess(true);
+          if (isMounted) {
+            setData(json.data);
+            setIsSuccess(true);
+          }
         })
         .catch((err) => {
-          setError(err);
-          setIsSuccess(false);
+          if (isMounted) {
+            setError(err);
+            setIsSuccess(false);
+          }
         })
         .finally(() => {
-          setIsLoading(false);
+          if (isMounted) setIsLoading(false);
         });
-    }, [requestBody.pageIndex, requestBody.pageSize]);
+
+      return () => {
+        isMounted = false;
+        controller.abort();
+      };
+    }, [requestBody]);
 
   return [isLoading, isSuccess, data, error];
 }

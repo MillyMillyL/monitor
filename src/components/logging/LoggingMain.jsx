@@ -49,6 +49,6 @@ export default function LoggingMain() {
       />
     </Box>
   ) : (
-    <p>Error: {error}</p>
+    <p>{error?.message}</p>
   );
 }

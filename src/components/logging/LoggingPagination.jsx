@@ -1,27 +1,26 @@
 import React from "react";
 import { Box } from "@mui/system";
 
+import { LOGGING_ACTION } from "@/reducer/loggingReducer";
+
 import "./style.css";
 
-const LoggingPagination = ({
-  pageIndex,
-  onClickPagePrev,
-  onClickPageNext,
-  pageSize,
-  onChagnePageSize,
-}) => {
+const LoggingPagination = ({ pageIndex, pageSize, handlePagination }) => {
   const pageSizeOptions = [50, 100, 200, 300];
 
   const onClickPrevPage = () => {
-    onClickPagePrev();
+    handlePagination({ type: LOGGING_ACTION.PAGE_PREV });
   };
 
   const onClickNextPage = () => {
-    onClickPageNext();
+    handlePagination({ type: LOGGING_ACTION.PAGE_NEXT });
   };
 
   const handlePageSizeChange = (e) => {
-    onChagnePageSize(e.target.value);
+    handlePagination({
+      type: LOGGING_ACTION.PAGE_SIZE,
+      pageSize: e.target.value,
+    });
   };
 
   return (

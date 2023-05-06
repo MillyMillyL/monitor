@@ -17,34 +17,20 @@ export default function LoggingMain() {
   const [state, dispatch] = useReducer(loggingReducer, initialLoggingState);
   const [isLoading, isSuccess, data, error] = useFectch(state);
 
-  const handleAllOpen = () => {
-    dispatch({ type: LOGGING_ACTION.ALL_OPEN });
-  };
-
-  const onClickPagePrev = () => {
-    dispatch({ type: LOGGING_ACTION.PAGE_PREV });
-  };
-
-  const onClickPageNext = () => {
-    dispatch({ type: LOGGING_ACTION.PAGE_NEXT });
-  };
-
-  const onChagnePageSize = (pageSize) => {
-    dispatch({ type: LOGGING_ACTION.PAGE_SIZE, pageSize });
+  const handleLoggingMain = (action) => {
+    dispatch(action);
   };
 
   return isSuccess ? (
     <Box className="log-container">
-      <LoggingToolbar allOpen={state.allOpen} handleAllOpen={handleAllOpen} />
+      <LoggingToolbar state={state} handleToolbar={handleLoggingMain} />
 
       <LoggingRows data={data} isLoading={isLoading} allOpen={state.allOpen} />
 
       <LoggingPagination
         pageIndex={state.pageIndex}
-        onClickPagePrev={onClickPagePrev}
-        onClickPageNext={onClickPageNext}
         pageSize={state.pageSize}
-        onChagnePageSize={onChagnePageSize}
+        handlePagination={handleLoggingMain}
         className="pagination"
       />
     </Box>

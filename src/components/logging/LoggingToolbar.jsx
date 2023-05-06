@@ -11,7 +11,9 @@ import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-export default function LoggingToolbar({ allOpen, handleAllOpen }) {
+import { LOGGING_ACTION } from "@/reducer/loggingReducer";
+
+export default function LoggingToolbar({ state, handleToolbar }) {
   return (
     <Toolbar className="toolbar">
       <Typography variant="h4">Logging</Typography>
@@ -21,13 +23,16 @@ export default function LoggingToolbar({ allOpen, handleAllOpen }) {
           <Select
             labelId="loglevel-label"
             id="loglevel-select"
-            // value={age}
+            value={state.loglevel}
             label="Log Level"
-            // onChange={handleChange}
+            onChange={(e) => {
+              handleToolbar({
+                type: LOGGING_ACTION.LOG_LEVEL,
+                loglevel: e.target.value,
+              });
+            }}
           >
-            <MenuItem value="" selected>
-              All
-            </MenuItem>
+            <MenuItem value="">All</MenuItem>
             <MenuItem value="Information">Information</MenuItem>
             <MenuItem value="Warning">Warning</MenuItem>
             <MenuItem value="Error">Error</MenuItem>
@@ -39,9 +44,14 @@ export default function LoggingToolbar({ allOpen, handleAllOpen }) {
           <Select
             labelId="env-label"
             id="env-select"
-            //value={"Development"}
+            value={state.environment}
             label="Environment"
-            // onChange={handleChange}
+            onChange={(e) => {
+              handleToolbar({
+                type: LOGGING_ACTION.LOG_ENV,
+                environment: e.target.value,
+              });
+            }}
           >
             <MenuItem value="">All</MenuItem>
             <MenuItem value="Development">Development</MenuItem>
@@ -54,20 +64,32 @@ export default function LoggingToolbar({ allOpen, handleAllOpen }) {
           <TextField
             label="Start Date"
             id="start_date"
-            defaultValue=""
             size="small"
             type="date"
+            value={state.dateStart}
             InputLabelProps={{ shrink: true }}
+            onChange={(e) =>
+              handleToolbar({
+                type: LOGGING_ACTION.DATE_RANGE,
+                dateStart: e.target.value,
+              })
+            }
           />
         </FormControl>
         <FormControl>
           <TextField
             label="End Date"
             id="end_date"
-            defaultValue=""
             size="small"
             type="date"
+            value={state.dateEnd}
             InputLabelProps={{ shrink: true }}
+            onChange={(e) =>
+              handleToolbar({
+                type: LOGGING_ACTION.DATE_RANGE,
+                dateEnd: e.target.value,
+              })
+            }
           />
         </FormControl>
         <FormControl>
@@ -83,8 +105,8 @@ export default function LoggingToolbar({ allOpen, handleAllOpen }) {
       <FormControlLabel
         control={<Switch />}
         label="Unfold All"
-        onChange={handleAllOpen}
-        checked={allOpen}
+        onChange={() => handleToolbar(LOGGING_ACTION.ALL_OPEN)}
+        checked={state.allOpen}
       />
     </Toolbar>
   );

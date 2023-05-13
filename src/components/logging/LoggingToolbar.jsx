@@ -12,8 +12,29 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 import { LOGGING_ACTION } from "@/reducer/loggingReducer";
+import { VerticalAlignBottom } from "@mui/icons-material";
 
 export default function LoggingToolbar({ state, handleToolbar }) {
+  const daysSelected =
+    (new Date(state.dateEnd) - new Date(state.dateStart)) / 86400000 + 1;
+
+  const handleDaysSelection = (days) => {
+    const current_Date = new Date();
+    const dte_Today = current_Date.toJSON().slice(0, 10);
+
+    let dte_Start = dte_Today;
+    if (days !== 1) {
+      current_Date.setDate(current_Date.getDate() - days + 1);
+      dte_Start = current_Date.toJSON().slice(0, 10);
+    }
+
+    handleToolbar({
+      type: LOGGING_ACTION.DATE_RANGE,
+      dateStart: dte_Start,
+      dateEnd: dte_Today,
+    });
+  };
+
   return (
     <Toolbar className="toolbar">
       <Typography variant="h4">Logging</Typography>
@@ -92,14 +113,41 @@ export default function LoggingToolbar({ state, handleToolbar }) {
             }
           />
         </FormControl>
-        <FormControl>
-          <Button size="small">1day</Button>
+        <FormControl sx={{ verticalAlign: "sub", marginLeft: "0.5rem" }}>
+          <Button
+            size="small"
+            variant={daysSelected === 1 ? "contained" : "text"}
+            onClick={() => handleDaysSelection(1)}
+          >
+            1day
+          </Button>
         </FormControl>
-        <FormControl>
-          <Button size="small">3day</Button>
+        <FormControl sx={{ verticalAlign: "sub", marginLeft: "0.2rem" }}>
+          <Button
+            size="small"
+            variant={daysSelected === 3 ? "contained" : "text"}
+            onClick={() => handleDaysSelection(3)}
+          >
+            3day
+          </Button>
         </FormControl>
-        <FormControl>
-          <Button size="small">1week</Button>
+        <FormControl sx={{ verticalAlign: "sub", marginLeft: "0.2rem" }}>
+          <Button
+            size="small"
+            variant={daysSelected === 7 ? "contained" : "text"}
+            onClick={() => handleDaysSelection(7)}
+          >
+            1week
+          </Button>
+        </FormControl>
+        <FormControl sx={{ verticalAlign: "sub", marginLeft: "0.2rem" }}>
+          <Button
+            size="small"
+            variant={daysSelected === 30 ? "contained" : "text"}
+            onClick={() => handleDaysSelection(30)}
+          >
+            1month
+          </Button>
         </FormControl>
       </Box>
       <FormControlLabel

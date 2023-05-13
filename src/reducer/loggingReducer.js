@@ -1,8 +1,8 @@
-const currentDateFull = new Date();
+const today = new Date().toJSON().slice(0, 10);
 
 export const initialState = {
-  dateStart: currentDateFull.toJSON().slice(0, 10),
-  dateEnd: new Date(currentDateFull.getTime() + 86400000).toJSON().slice(0, 10),
+  dateStart: today,
+  dateEnd: today,
   loglevel: "",
   environment: "Development",
   service: "",
@@ -28,6 +28,7 @@ export const loggingReducer = (state = initialState, action) => {
         ...state,
         dateStart: action.dateStart ?? state.dateStart,
         dateEnd: action.dateEnd ?? state.dateEnd,
+        pageIndex: 1,
       };
 
     case LOGGING_ACTION.LOG_LEVEL:

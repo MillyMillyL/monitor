@@ -35,12 +35,14 @@ export const loggingReducer = (state = initialState, action) => {
       return {
         ...state,
         loglevel: action.loglevel ?? "",
+        pageIndex: 1,
       };
 
     case LOGGING_ACTION.LOG_ENV:
       return {
         ...state,
         environment: action.environment ?? "",
+        pageIndex: 1,
       };
 
     case LOGGING_ACTION.LOG_SERVICE:

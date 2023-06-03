@@ -1,41 +1,43 @@
 import React, { useEffect, useState } from "react";
-import { fetchLogging } from "@/api/loggingApi";
+import { fetchDataFactory } from "../api/fetchDataFactory";
 
-export default function useFectch(requestBody) {
+export default function useFectch(requestBody, requestPage) {
   const [data, setData] = useState(null);
   const [error, setError] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [isSuccess, setIsSuccess] = useState(true);
 
-  requestBody &&
-    useEffect(() => {
-      setIsLoading(true);
-      let isMounted = true;
+  useEffect(() => {
+    setIsLoading(true);
+    let isMounted = true;
 
-      const [fetchPromise, controller] = fetchLogging(requestBody);
-      fetchPromise
-        .then((res) => res.json())
-        .then((json) => {
-          if (isMounted) {
-            setData(json.data);
-            setIsSuccess(true);
-          }
-        })
-        .catch((err) => {
-          if (isMounted) {
-            setError(err);
-            setIsSuccess(false);
-          }
-        })
-        .finally(() => {
-          if (isMounted) setIsLoading(false);
-        });
+    const [fetchPromise, controller] = fetchDataFactory(
+      requestBody,
+      requestPage
+    );
+    fetchPromise
+      .then((res) => res.json())
+      .then((json) => {
+        if (isMounted) {
+          setData(json.data);
+          setIsSuccess(true);
+        }
+      })
+      .catch((err) => {
+        if (isMounted) {
+          setError(err);
+          setIsSuccess(false);
+        }
+      })
+      .finally(() => {
+        if (isMounted) setIsLoading(false);
+      });
 
-      return () => {
-        isMounted = false;
-        controller.abort();
-      };
-    }, [requestBody]);
+    return () => {
+      isMounted = false;
+      controller.abort();
+    };
+  }, [requestBody]);
 
   return [isLoading, isSuccess, data, error];
 }

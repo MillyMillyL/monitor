@@ -1,7 +1,7 @@
 import { apiFetch } from "@/api/apiFetch";
 
-export function fetchLoggingData(requestBody) {
-  const endpoint = "logging";
+export function fetchMonitorData(requestBody) {
+  const endpoint = "monitor";
   const method = "put";
 
   return apiFetch(requestBody, { method, endpoint });

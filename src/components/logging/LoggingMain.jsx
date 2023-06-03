@@ -12,10 +12,11 @@ import LoggingRows from "./LoggingRows";
 import LoggingPagination from "./LoggingPagination";
 
 import "./style.css";
+import { cst_LOGGING } from "../../shared/consts";
 
 export default function LoggingMain() {
   const [state, dispatch] = useReducer(loggingReducer, initialLoggingState);
-  const [isLoading, isSuccess, data, error] = useFectch(state);
+  const [isLoading, isSuccess, data, error] = useFectch(state, cst_LOGGING);
 
   const handleLoggingMain = (action) => {
     dispatch(action);

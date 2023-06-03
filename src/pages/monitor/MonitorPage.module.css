@@ -1,0 +1,40 @@
+.container{
+
+}
+.container h1 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.servicesContainer {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #ccc;
+    flex-wrap: wrap;
+    padding: 3rem;
+}
+.servicesContainer .outer{
+    display: flex;
+    flex-direction: column;
+    width:20rem; 
+}
+.servicesContainer .outerCircle {
+    background-color: red;
+    width:10rem;
+    height:10rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+.servicesContainer .innerCircle {
+    background-color: #30cd30;
+    width:8rem;
+    height:8rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+}

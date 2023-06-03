@@ -21,14 +21,48 @@ function MonitorPage() {
       ) : (
         <div className={styles.servicesContainer}>
           {data.map((e) => (
-            <div className={styles.outer}>
-              <div className={styles.outerCircle} key={e.id}>
-                <div className={styles.innerCircle}>{e.serviceName}</div>
+            <div className={styles.service}>
+              <div
+                className={`${styles.status}   ${
+                  e.status === 0
+                    ? styles.starting
+                    : e.status === 1
+                    ? styles.online
+                    : styles.offline
+                }`}
+              >
+                {e.status === 0
+                  ? "starting"
+                  : e.status === 1
+                  ? "online"
+                  : "offline"}
               </div>
-              <div>{e.ipAddress}</div>
-              <div>{e.launchTime}</div>
-              <div>{e.id}</div>
-              <div>{e.containerID}</div>
+              <div
+                className={`${styles.circle_parent}   ${
+                  e.status === 0
+                    ? styles.starting
+                    : e.status === 1
+                    ? styles.online
+                    : styles.offline
+                }`}
+                key={e.id}
+              >
+                <div className={styles.circle_child}>{e.serviceName}</div>
+              </div>
+              <div className={styles.service_info}>
+                <div>
+                  IP: <span> {e.ipAddress}</span>
+                </div>
+                <div>
+                  Start Time: <span>{e.launchTime}</span>
+                </div>
+                <div>
+                  ID: <span>{e.id}</span>
+                </div>
+                <div>
+                  ContainerId: <span>{e.containerID}</span>
+                </div>
+              </div>
             </div>
           ))}
         </div>

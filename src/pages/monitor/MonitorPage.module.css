@@ -8,33 +8,62 @@
 
 .servicesContainer {
     display: flex;
-    justify-content: space-evenly;
-    background-color: #ccc;
+    justify-content: space-evenly; 
     flex-wrap: wrap;
-    padding: 3rem;
+    padding: 1rem;
 }
-.servicesContainer .outer{
+.servicesContainer .service{ 
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
     width:20rem; 
+    padding: 2rem 0;
 }
-.servicesContainer .outerCircle {
-    background-color: red;
-    width:10rem;
-    height:10rem;
+.servicesContainer .service .status{      
+    border-radius: 0.5rem;
+    padding: 0.2rem 1rem;
+    color:#fff;
+    font-size: 1.5rem;
+   
+}
+.servicesContainer .service  .circle_parent {
+    background-color: #24d124;
+    width:12rem;
+    height:12rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
+    margin:0.1rem 0.5rem;
 }
-.servicesContainer .innerCircle {
-    background-color: #30cd30;
+.servicesContainer .service .circle_child {
+    background-color: rgb(176, 227, 250); 
     width:8rem;
     height:8rem;
     border-radius: 50%;
     display: flex;
     justify-content: center;
-    align-content: center;
-    flex-wrap: wrap;
+    align-content: center; 
+    flex-wrap: wrap;     
 }
+
+.servicesContainer .service .starting{  
+    background-color: #76d7e8;
+      
+}
+.servicesContainer .service .online{  
+    background-color: #24d124;
+       
+}
+.servicesContainer .service .offline{  
+    background-color: #e32e0e;
+       
+}
+
+.servicesContainer .service  .service_info {
+    
+}
+
+ 
